@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import { authRouter } from "./routes/authRouter.js";
 import { productsRouter } from "./routes/productsRouter.js";
+import { cartRouter } from "./routes/cartRouter.js";
+import { usersRouter } from "./routes/usersRouter.js";
 
 /**
  * Handle any error coming from the Express application.
@@ -31,6 +33,9 @@ export function createServerApp() {
 
     app.use("/tokens", authRouter);
     app.use("/products", productsRouter);
+    app.use("/cart", cartRouter);
+    app.use("/users", usersRouter);
+
     app.use(errorHandler);
 
     return app;

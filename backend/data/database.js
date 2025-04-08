@@ -1,10 +1,7 @@
 import bcrypt from "bcrypt";
 import { Sequelize } from "sequelize";
 import UserModel from "./model/User.js";
-import SessionModel from "./model/Session.js";
-import SessionMemberModel from "./model/SessionMember.js";
-import ActionModel from "./model/Action.js";
-
+import ProductModel from "./model/Product.js";
 const dbFilePath = process.env.DB_PATH ?? "database.sqlite";
 
 // Database configuration
@@ -19,27 +16,7 @@ const sequelize = new Sequelize({
 
 // Import and initialize models
 const User = UserModel(sequelize);
-const Session = SessionModel(sequelize);
-const SessionMember = SessionMemberModel(sequelize);
-const Action = ActionModel(sequelize);
-
-// Define relationships
-User.hasMany(Action, { foreignKey: "user_id" });
-Action.belongsTo(User, { foreignKey: "user_id" });
-
-Session.hasMany(Action, { foreignKey: "session_id" });
-Action.belongsTo(Session, { foreignKey: "session_id" });
-
-Session.belongsToMany(User, {
-    through: SessionMember,
-    foreignKey: "session_id",
-});
-User.belongsToMany(Session, { through: SessionMember, foreignKey: "user_id" });
-
-SessionMember.belongsTo(User, { foreignKey: "user_id" });
-SessionMember.belongsTo(Session, { foreignKey: "session_id" });
-
-Session.hasMany(SessionMember, { foreignKey: "session_id" });
+const Product = ProductModel(sequelize);
 
 // method for creating the database file and syncing the schema
 const createDatabaseFile = async () => {
@@ -68,29 +45,18 @@ const closeConnection = async () => {
 };
 
 async function createDefaultAdminUser() {
-    return User.findOrCreate({
-        where: {
-            is_admin: true,
-        },
-        defaults: {
-            username: "admin",
-            email: process.env.DEFAULT_ADMIN_EMAIL || "admin@saxion.nl",
-            password: await bcrypt.hash(
-                process.env.DEFAULT_ADMIN_PASSWORD || "password",
-                10,
-            ),
-            is_admin: true,
-            is_lead: true,
-        },
-    });
+    const hashedPassword = await bcrypt.hash("password", 10);
+
+    return User.create({
+        username: "admin",
+        password: hashedPassword,
+    })
 }
 
 export {
     sequelize,
     User,
-    Session,
-    SessionMember,
-    Action,
+    Product,
     connectToDatabase,
     closeConnection,
     createDefaultAdminUser,

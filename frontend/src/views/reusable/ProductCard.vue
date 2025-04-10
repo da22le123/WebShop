@@ -33,12 +33,13 @@
   
   <style scoped>
   .product-card {
-  border: 1px solid #555;            /* Darker border for contrast */
+  
+  border: 1px solid #555;
   border-radius: 8px;
-  background-color: #2c2c2c;           /* Dark background */
+  background-color: #2c2c2c;
   padding: 16px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: #e0e0e0;                    /* Light text color for readability */
+  color: #e0e0e0;
 }
 
 .product-card:hover {
@@ -55,7 +56,7 @@
 .product-title {
   font-size: 1.2rem;
   margin-bottom: 8px;
-  color: #fff;                       /* Ensure title is in white */
+  color: #fff; 
 }
 
 .product-footer {

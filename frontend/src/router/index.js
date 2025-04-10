@@ -1,7 +1,8 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginPage from '../components/LoginPage.vue'
-import CataloguePage from '../components/CataloguePage.vue'
+import LoginPage from '../views/LoginPage.vue'
+import CataloguePage from '../views/CataloguePage.vue'
+import Cart from '../views/Cart.vue'
 
 const routes = [
   {
@@ -23,6 +24,12 @@ const routes = [
     path: '/catalogue',
     name: 'Catalogue',
     component: CataloguePage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart,
     meta: { requiresAuth: true }
   }
 ]

@@ -2,7 +2,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginPage from '../views/LoginPage.vue'
 import CataloguePage from '../views/CataloguePage.vue'
-import Cart from '../views/Cart.vue'
+import CheckoutPage from '../views/CheckoutPage.vue'
 
 const routes = [
   {
@@ -27,9 +27,9 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/cart',
-    name: 'Cart',
-    component: Cart,
+    path: '/checkout',
+    name: 'CheckoutPage',
+    component: CheckoutPage,
     meta: { requiresAuth: true }
   }
 ]

@@ -35,24 +35,34 @@
   
   <script setup>
   import { ref } from 'vue';
+  import apiClient from '../services/axios.js';
+  import { useRouter } from 'vue-router'
   
-  // Define reactive properties for the login credentials and error message.
   const username = ref('');
   const password = ref('');
   const error = ref('');
+
+  const router = useRouter()
   
-  // A simple login function that validates the credentials.
-  // Replace the hardcoded logic with real authentication as needed.
-  const login = () => {
-    if (username.value === 'admin' && password.value === 'password') {
-      // Handle successful login (e.g., redirect, set token, etc.)
-      alert('Login successful!');
-      error.value = '';
+  const login = async () => {
+    try {
+    const response = await apiClient.post('/tokens', {
+      username: username.value,
+      password: password.value
+    });
+    
+    const token = response.data.token;
+    if (token) {
+      localStorage.setItem('token', token);
+      router.push({name: 'Catalogue'});
     } else {
-      // Display an error message if credentials do not match.
-      error.value = 'Invalid username or password.';
+      error.value = 'Login failed: No token returned.';
     }
-  };
+  } catch (err) {
+    error.value = 'Invalid username or password.';
+    console.error('Login error:', err);
+  }
+};
   </script>
   
   <style scoped>

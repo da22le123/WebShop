@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { User } from "../data/database.js";
+import { registerSchema } from "../schemas.js";
 
 export const createUser = async (req, res) => {
     const validatedData = await registerSchema.validate(req.body, {

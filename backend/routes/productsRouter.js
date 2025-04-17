@@ -5,7 +5,7 @@ import { verifyToken } from "../middleware/verifyToken.js";
 const productsRouter = express.Router();
 
 productsRouter.get("/", getAllProducts);
-productsRouter.post("/", verifyToken, addProduct);
+productsRouter.post("/", addProduct);
 
 export { productsRouter };
 

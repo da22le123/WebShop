@@ -1,0 +1,16 @@
+version: 1.0.0
+
+services:
+  web-shop-frontend:
+    image: nginx:latest
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html
+      - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "81:80"
+
+  web-shop-backend:
+    image: ghcr.io/da22le123/webshop-backend:latest
+    platform: linux/amd64
+    expose:
+      - 3000

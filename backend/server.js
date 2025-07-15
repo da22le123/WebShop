@@ -1,6 +1,5 @@
 import "express-async-errors";
 import express from "express";
-import cors from "cors";
 import { authRouter } from "./routes/authRouter.js";
 import { productsRouter } from "./routes/productsRouter.js";
 import { cartRouter } from "./routes/cartRouter.js";
@@ -29,8 +28,6 @@ export function createServerApp() {
     const app = express();
 
     app.use(express.json());
-    app.use(cors());
-
     app.use("/tokens", authRouter);
     app.use("/products", productsRouter);
     app.use("/cart", cartRouter);
